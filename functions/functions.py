@@ -33,7 +33,25 @@ def generate_group_name(
 
 
 def read_metadata(file: str, path: str, attr_key: str) -> Any:
-    pass
+        try:
+            with h5.File(file, "r") as h5file:
+                if path not in h5file:
+                    print(f"Warning: Path '{path} not found in HDF5 file.")
+                    return None
+                
+                obj = h5file[path]
+
+                if attr_key not in obj.attrs:
+                    print(f"Warning: Attribute '{attr_key}' not found at path '{path}'.")
+                    return None
+                
+                return obj.attrs[attr_key]
+            
+
+        except (OSError, FileNotFoundError):
+            print(f"Warning: Could not open HDF5 file '{file}'.")
+            return None
+    
 
 
 def read_data(file: str, path: str) -> Optional[NDArray]:
