@@ -5,7 +5,10 @@ from functions import functions as fn
 
 
 def main():
-    file_path = "C:\Users\ACER\Downloads\pa-ws2526\pa-ws2526\data\data_GdD_WiSe2526"
+    file_path = "data\data_GdD_WiSe2526.h5"
+    controllers = ["ARIMA", "DTWS", "PID"]
+    topologies = ["Coupled", "Decentral", "Central"]
+    disruptions = ["BlockageConstant", "BlockageCosine", "PumpOutage", "NoDisruption"]
     pass
 
 
