@@ -15,6 +15,20 @@ def generate_group_name(
     topology: Union[str, List[str]],
     disruption: Union[str, List[str]],
 ) -> List[str]:
+    # if variable is String, convert to List
+    if isinstance(controller, str):
+        controller = [controller]
+    if isinstance(topology, str):
+        topology = [topology]
+    if isinstance(disruption, str):
+        disruption = [disruption]
+
+    group_name = []
+
+    for C in controller:
+        for T in topology:
+            for D in disruption:
+                group_name.append(f"{controller}_{topology}_{disruption}")
     pass
 
 
