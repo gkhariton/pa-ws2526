@@ -12,6 +12,8 @@ def main():
 
     group_names = generate_group_name(controllers, topologies, disruptions)
     considered_groups = ["DTW_Coupled_NoDisruption"]
+
+    processed_data = pd.DataFrame(columns=["power_mean", "power_std", "service_loss_mean", "service_loss_std"])
     pass
 
 
