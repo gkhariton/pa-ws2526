@@ -25,6 +25,16 @@ def main():
         groups_service_loss = []
         groups_power = []
 
+        for run_id in range(1, 11):
+            run_name = f"run_{run_id:02d}"         
+            run_path = f"{group}/{run_name}"       
+
+            start_time_index = read_metadata(
+                file=file_path,
+                path=run_path,
+                attr_key="analyse_start_time_index"
+        )
+
 
 if __name__ == "__main__":
     main()
