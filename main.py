@@ -4,6 +4,7 @@ import pandas as pd
 
 from functions.functions import generate_group_name
 from functions.functions import read_metadata
+from functions.functions import read_data
 
 def main():
     file_path = "data/data_GdD_WiSe2526.h5"
@@ -29,11 +30,26 @@ def main():
             run_name = f"run_{run_id:02d}"         
             run_path = f"{group}/{run_name}"       
 
-            start_time_index = read_metadata(
+            start_time_index = read_metadata(file=file_path, path=run_path, attr_key="analyse_start_time_index")
+            tank_1_pressure = read_data(
                 file=file_path,
-                path=run_path,
-                attr_key="analyse_start_time_index"
-        )
+                path=f"{run_path}/tank_1_pressure"
+            )
+
+            pump_1_power = read_data(
+                file=file_path,
+                path=f"{run_path}/pump_1_power"
+            )
+
+            pump_2_power = read_data(
+                file=file_path,
+                path=f"{run_path}/pump_2_power"
+            )
+
+            time = read_data(
+                file=file_path,
+                path=f"{run_path}/time"
+            )
 
 
 if __name__ == "__main__":
