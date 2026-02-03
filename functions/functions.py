@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 from matplotlib.figure import Figure
 from numpy.typing import NDArray
-from plotid.publish import publish
-from plotid.tagplot import tagplot
+#from plotid.publish import publish
+#from plotid.tagplot import tagplot
 
 
 def generate_group_name(
@@ -29,7 +29,7 @@ def generate_group_name(
         for T in topology:
             for D in disruption:
                 group_name.append(f"{controller}_{topology}_{disruption}")
-    pass
+    return group_name
 
 
 def read_metadata(file: str, path: str, attr_key: str) -> Any:
@@ -55,6 +55,33 @@ def read_metadata(file: str, path: str, attr_key: str) -> Any:
 
 
 def read_data(file: str, path: str) -> Optional[NDArray]:
+    try:
+        with h5.File(file, "r") as h5file:
+            
+            if path not in h5file:
+                print(f"Warning: Path '{path}' not found in HDF5 file.")
+                return None
+
+            obj = h5file[path]
+
+            
+            if not isinstance(obj, h5.Dataset):
+                print(f"Warning: Path '{path}' does not point to a dataset.")
+                return None
+
+            data = np.asarray(obj[()])
+
+            
+            if data.ndim == 0:
+                data = data.reshape(1)
+            elif data.ndim != 1:
+                data = data.ravel()
+
+            return data
+
+    except (OSError, FileNotFoundError):
+        print(f"Warning: Could not open HDF5 file '{file}'.")
+        return None
     pass
 
 

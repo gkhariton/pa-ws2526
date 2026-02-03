@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd
 
-from functions import functions as fn
-from functions import generate_group_name
-from functions import read_metadata
+
+from functions.functions import generate_group_name
+from functions.functions import read_metadata
 
 def main():
     file_path = "data/data_GdD_WiSe2526.h5"
@@ -22,8 +22,8 @@ def main():
 
         setpoint = read_metadata(file=file_path, path=group, attr_key="setpoint")
 
-    groups_service_loss = []
-    groups_power = []
+        groups_service_loss = []
+        groups_power = []
 
 
 if __name__ == "__main__":
