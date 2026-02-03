@@ -3,9 +3,10 @@ import pandas as pd
 
 from functions import functions as fn
 from functions import generate_group_name
+from functions import read_metadata
 
 def main():
-    file_path = "data\data_GdD_WiSe2526.h5"
+    file_path = "data/data_GdD_WiSe2526.h5"
     controllers = ["ARIMA", "DTW", "PID"]
     topologies = ["Coupled", "Decentral", "Central"]
     disruptions = ["BlockageConstant", "BlockageCosine", "PumpOutage", "NoDisruption"]
@@ -14,7 +15,15 @@ def main():
     considered_groups = ["DTW_Coupled_NoDisruption"]
 
     processed_data = pd.DataFrame(columns=["power_mean", "power_std", "service_loss_mean", "service_loss_std"])
-    pass
+
+    for group in group_names:
+        if group not in considered_groups:
+            continue
+
+        setpoint = read_metadata(file=file_path, path=group, attr_key="setpoint")
+
+    groups_service_loss = []
+    groups_power = []
 
 
 if __name__ == "__main__":
