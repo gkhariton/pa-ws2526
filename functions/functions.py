@@ -102,19 +102,36 @@ def check_negative_values(array: NDArray) -> bool:
 
 
 def integral_with_time_step(data: NDArray, time_steps: NDArray) -> float:
-    pass
+    if len(data) != len(time_steps):
+        print("Warning: data and time_steps must have the same length.")
+        return None
+
+    if len(data) < 2:
+        return 0.0
+
+    total = 0.0
+    for i in range(len(data) - 1):
+        total += (data[i] + data[i + 1]) / 2.0 * (time_steps[i + 1] - time_steps[i])
+
+    return float(total)
 
 
 def calculate_service_loss(service_fill: float, service_target: float) -> float:
-    pass
+    return 100.0 * (1.0 - service_fill / service_target)
+    
 
 
 def convert_Ws_to_Wh(energy_in_Ws: float) -> float:
-    pass
+    return energy_in_Ws / 3600.0
+    
 
 
 def calculate_mean_and_std(data: List[float]) -> Tuple[float, float]:
-    pass
+    arr = np.asarray(data)
+    mean = float(np.mean(arr))
+    std = float(np.std(arr))
+    return mean, std
+    
 
 
 def save_dataframe_in_hdf5_with_metadata(
