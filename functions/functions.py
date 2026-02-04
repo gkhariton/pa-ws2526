@@ -86,11 +86,19 @@ def read_data(file: str, path: str) -> Optional[NDArray]:
 
 
 def cap_service_data(service_data: NDArray, setpoint: float) -> NDArray:
-    pass
+    capped = service_data.copy()
+    capped[capped > setpoint] = setpoint
+    capped[capped < 0] = 0
+    return capped
+    
 
 
 def check_negative_values(array: NDArray) -> bool:
-    pass
+    for value in array:
+        if value < 0:
+            return False
+    return True
+    
 
 
 def integral_with_time_step(data: NDArray, time_steps: NDArray) -> float:

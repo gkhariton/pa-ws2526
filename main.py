@@ -2,9 +2,8 @@ import numpy as np
 import pandas as pd
 
 
-from functions.functions import generate_group_name
-from functions.functions import read_metadata
-from functions.functions import read_data
+from functions.functions import generate_group_name, read_metadata, read_data, cap_service_data, check_negative_values
+
 
 def main():
     file_path = "data/data_GdD_WiSe2526.h5"
@@ -50,6 +49,23 @@ def main():
                 file=file_path,
                 path=f"{run_path}/time"
             )
+
+            service_fill = cap_service_data(
+                service_data=tank_1_pressure,
+                setpoint=setpoint
+            )
+
+            if not check_negative_values(pump_1_power):
+                print(
+                    f"Warning: Negative values in pump_1_power "
+                    f"for group {group}, {run_name}"
+                )
+
+            if not check_negative_values(pump_2_power):
+                print(
+                    f"Warning: Negative values in pump_2_power "
+                    f"for group {group}, {run_name}"
+                )
 
 
 if __name__ == "__main__":
